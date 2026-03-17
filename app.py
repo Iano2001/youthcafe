@@ -151,6 +151,8 @@ def get_countries_hubs():
 def home():
     return "Hello Flask"
 
+with app.app_context():
+    db.create_all()
 
 # ✅ Production-ready run
 if __name__ == "__main__":
