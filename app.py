@@ -92,6 +92,13 @@ def get_countries_hubs():
     countries = CountryMember.query.all()
     return jsonify([{"country_name": c.country_name, "members": c.members, "hubs": [h.name for h in c.hubs]} for c in countries])
 
+
+@app.route("/create-tables")
+def create_tables():
+    with app.app_context():
+        db.create_all()
+    return "Tables created successfully!"
+
 @app.route("/")
 def home():
     return "Hello Flask"
