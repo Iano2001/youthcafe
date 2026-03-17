@@ -57,6 +57,17 @@ class Hub(db.Model):
         return {"id": self.id, "name": self.name, "country_id": self.country_id}
 
 # ------------------ ROUTES ------------------
+
+from flask import send_from_directory
+
+@app.route("/", defaults={"path": ""})
+@app.route("/<path:path>")
+def serve(path):
+    if path != "" and os.path.exists("build/" + path):
+        return send_from_directory("build", path)
+    else:
+        return send_from_directory("build", "index.html")
+    
 @app.route("/countries", methods=["PUT"])
 def update_country_members():
     data = request.get_json()
